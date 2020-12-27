@@ -223,22 +223,29 @@ def handleInput(key):
     if key == "back":
         key = ""
         return 1
-
-if(len(sys.argv) > 2 and len(sys.argv) <= 3):
-        args = sys.argv
-        del args[0]
+args = sys.argv
+del args[0]
+if(len(args) > 0 and len(args) < 3):
+        menu = 0
         if args[0] == "led" or args[0] == "l": menu = 2
         elif args[0] == "rec" or args[0] == "r": menu = 3
         elif args[0] == "av" or args[0] == "a": menu = 4
         elif args[0] == "other" or args[0] == "o": menu = 5
+        if(len(args) < 2 and len(args) != 0): 
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Error: Not enough arguments!\n")
+            exit()
+
+        if menu == 0:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Error: wrong arguments!\n")
+            exit()
         setValid()
-        if args[1] in valid: handleInput(args[1])
-        os.system('cls' if os.name == 'nt' else 'clear')
-        exit()
-if(len(sys.argv) < 3): 
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("Error: Not enough arguments!\n")
-    exit()
+        if args[1] in valid: 
+            print("Working...")
+            handleInput(args[1])
+            os.system('cls' if os.name == 'nt' else 'clear')
+            exit()
 
 def printMenu(selected):
     global menu
