@@ -1,17 +1,35 @@
 import os
 import colorama
 import requests
+import sys
 from colorama import Fore, Style
-version = "1.0 "
+version = "1.2 "
 running = True
 valid = []
 
-def printMenu(selected):
-    global menu
-    menu = selected
+with open('/home/ccomm/.key', 'r') as file:
+    global cryptkey
+    cryptkey = file.read().replace('\n', '')
+with open('/home/ccomm/.username', 'r') as file:
+    global usr
+    usr = file.read().replace('\n', '')
 
+def sendThingerMsg(device, thing, value):
+    host = "https://backend.thinger.io/v3/users/"
+    url = host + usr + "/devices/" + device + "/resources/" + thing + "?authorization=" + cryptkey
+    msg = '{"in": ' + value + '}'
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url, data=msg, headers=headers)
+    return response.text
+
+def getThingerMsg(device, thing):
+    host = "https://backend.thinger.io/v3/users/"
+    url = host + usr + "/devices/" + device + "/resources/" + thing + "?authorization=" + cryptkey
+    response = requests.get(url)
+    return response.text
+
+def setValid():
     global valid
-    print(Fore.RED)
     if menu == 1:
 
         valid = ['l', 'r', 'a', 'o']
@@ -41,20 +59,6 @@ def printMenu(selected):
 
         valid = ['l', 'r', 'a', 'o']
         print(Fore.LIGHTGREEN_EX)
-
-    print(" ================")
-    print(" | HomeIoT V" + version + "|")
-    print(" ================\n" + Fore.RESET)
-    if menu == "error":
-        print(Fore.RED + " Error: I didn't recognized that command!\n" + Fore.RESET)
-        menu = 1
-
-    if menu == 1:
-        print("=========================================\n What menu would you like to open?\n")
-    else:
-        print("=========================================\n What function would you like to use?")   
-    printOptions()
-    print('  Use "exit" to exit the program\n=========================================')
 
 def handleInput(key):
     #main menu
@@ -220,6 +224,41 @@ def handleInput(key):
         key = ""
         return 1
 
+if(len(sys.argv) > 2 and len(sys.argv) <= 3):
+        args = sys.argv
+        del args[0]
+        if args[0] == "led" or args[0] == "l": menu = 2
+        elif args[0] == "rec" or args[0] == "r": menu = 3
+        elif args[0] == "av" or args[0] == "a": menu = 4
+        elif args[0] == "other" or args[0] == "o": menu = 5
+        setValid()
+        if args[1] in valid: handleInput(args[1])
+        os.system('cls' if os.name == 'nt' else 'clear')
+        exit()
+if(len(sys.argv) < 3): 
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Error: Not enough arguments!\n")
+    exit()
+
+def printMenu(selected):
+    global menu
+    menu = selected
+    print(Fore.RED)
+    setValid()
+    print(" ================")
+    print(" | HomeIoT V" + version + "|")
+    print(" ================\n" + Fore.RESET)
+    if menu == "error":
+        print(Fore.RED + " Error: I didn't recognized that command!\n" + Fore.RESET)
+        menu = 1
+
+    if menu == 1:
+        print("=========================================\n What menu would you like to open?\n")
+    else:
+        print("=========================================\n What function would you like to use?")   
+    printOptions()
+    print('  Use "exit" to exit the program\n=========================================')
+
 def printOptions():
     if menu == 1:
         print('  - (l)edstrip')
@@ -276,29 +315,7 @@ def printOptions():
 
     if menu != 1: print('\n Type "back" to go back to main! Press ENTER to reload!')
 
-def sendThingerMsg(device, thing, value):
-    host = "https://backend.thinger.io/v3/users/"
-    url = host + usr + "/devices/" + device + "/resources/" + thing + "?authorization=" + cryptkey
-    msg = '{"in": ' + value + '}'
-    headers = {'Content-type': 'application/json'}
-    response = requests.post(url, data=msg, headers=headers)
-    return response.text
-
-def getThingerMsg(device, thing):
-    host = "https://backend.thinger.io/v3/users/"
-    url = host + usr + "/devices/" + device + "/resources/" + thing + "?authorization=" + cryptkey
-    response = requests.get(url)
-    return response.text
-
 os.system('cls' if os.name == 'nt' else 'clear')
-
-with open('.key', 'r') as file:
-    global cryptkey
-    cryptkey = file.read().replace('\n', '')
-with open('.username', 'r') as file:
-    global usr
-    usr = file.read().replace('\n', '')
-
 
 printMenu(1)
 
