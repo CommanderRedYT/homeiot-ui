@@ -32,7 +32,7 @@ def setValid():
     global valid
     if menu == 1:
 
-        valid = ['l', 'r', 'a', 'o']
+        valid = ['l', 'r', 'a', 'o', 'logout', 'pull']
         print(Fore.LIGHTGREEN_EX)
 
     elif menu == 2:
@@ -57,7 +57,7 @@ def setValid():
 
     elif menu == "error":
 
-        valid = ['l', 'r', 'a', 'o']
+        valid = ['l', 'r', 'a', 'o', 'logout', 'pull']
         print(Fore.LIGHTGREEN_EX)
 
 def handleInput(key):
@@ -75,6 +75,14 @@ def handleInput(key):
         elif key == "o": #other stuff
             key = ""
             return 5
+        elif key == "pull":
+            key = ""
+            os.system("git pull")
+            return 1
+        elif key == "logout":
+            key = ""
+            os.system("logout")
+            return 1
 
     #ledstrip
     elif menu == 2:
