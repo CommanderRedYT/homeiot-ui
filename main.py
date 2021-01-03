@@ -32,7 +32,7 @@ def setValid():
     global valid
     if menu == 1:
 
-        valid = ['l', 'r', 'a', 'o', 'logout', 'pull']
+        valid = ['l', 'r', 'a', 'o', 'pull']
         print(Fore.LIGHTGREEN_EX)
 
     elif menu == 2:
@@ -57,7 +57,7 @@ def setValid():
 
     elif menu == "error":
 
-        valid = ['l', 'r', 'a', 'o', 'logout', 'pull']
+        valid = ['l', 'r', 'a', 'o', 'pull']
         print(Fore.LIGHTGREEN_EX)
 
 def handleInput(key):
@@ -79,10 +79,6 @@ def handleInput(key):
             key = ""
             os.system("cd ~/homeiot-ui && git pull")
             os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
-            return 1
-        elif key == "logout":
-            key = ""
-            os.system("logout | bash")
             return 1
 
     #ledstrip
