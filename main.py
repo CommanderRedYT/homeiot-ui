@@ -82,7 +82,7 @@ def handleInput(key):
             return 1
         elif key == "logout":
             key = ""
-            os.system("exit")
+            os.system("logout | bash")
             return 1
 
     #ledstrip
