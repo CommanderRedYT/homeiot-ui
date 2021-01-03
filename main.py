@@ -77,11 +77,11 @@ def handleInput(key):
             return 5
         elif key == "pull":
             key = ""
-            os.system("git pull")
+            os.system("cd /home/homeiot-ui/homeiot-ui && git pull")
             return 1
         elif key == "logout":
             key = ""
-            os.system("logout")
+            os.system("exit")
             return 1
 
     #ledstrip
