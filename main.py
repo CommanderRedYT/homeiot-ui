@@ -77,7 +77,8 @@ def handleInput(key):
             return 5
         elif key == "pull":
             key = ""
-            os.system("cd /home/homeiot-ui/homeiot-ui && git pull")
+            os.system("cd ~/homeiot-ui && git pull")
+            os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
             return 1
         elif key == "logout":
             key = ""
