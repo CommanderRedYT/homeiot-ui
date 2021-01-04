@@ -3,7 +3,7 @@ import colorama
 import requests
 import sys
 from colorama import Fore, Style
-version = "1.3 "
+version = "1.4 "
 running = True
 valid = []
 
