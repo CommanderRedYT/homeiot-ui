@@ -85,6 +85,7 @@ def handleInput(key):
                 f = open("tmplogout", "w")
                 f.write("2")
                 f.close()
+                exit()
             elif system == "sobotka":
                 os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
             return 1
