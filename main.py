@@ -7,13 +7,13 @@ version = "1.3 "
 running = True
 valid = []
 
-with open('.key', 'r') as file:
+with open('./.key', 'r') as file:
     global cryptkey
     cryptkey = file.read().replace('\n', '')
-with open('.username', 'r') as file:
+with open('./.username', 'r') as file:
     global usr
     usr = file.read().replace('\n', '')
-with open('.system', 'r') as file:
+with open('./.system', 'r') as file:
     global system
     system = file.read().replace('\n', '')
 
