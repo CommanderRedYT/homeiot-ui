@@ -54,7 +54,7 @@ def setValid():
         print(Fore.CYAN)
 
     elif menu == 5:
-        
+
         valid = ['back', 'wol', 'lamp']
         print(Fore.LIGHTYELLOW_EX)
 
@@ -81,7 +81,6 @@ def handleInput(key):
         elif key == "pull":
             key = ""
             if system == "pi":
-                os.system("cd ~/homeiot-ui && git pull")
                 f = open("tmplogout", "w")
                 f.write("2")
                 f.close()
