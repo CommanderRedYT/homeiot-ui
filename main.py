@@ -7,12 +7,15 @@ version = "1.3 "
 running = True
 valid = []
 
-with open('/home/ccomm/.key', 'r') as file:
+with open('.key', 'r') as file:
     global cryptkey
     cryptkey = file.read().replace('\n', '')
-with open('/home/ccomm/.username', 'r') as file:
+with open('.username', 'r') as file:
     global usr
     usr = file.read().replace('\n', '')
+with open('.system', 'r') as file:
+    global system
+    system = file.read().replace('\n', '')
 
 def sendThingerMsg(device, thing, value):
     host = "https://backend.thinger.io/v3/users/"
@@ -77,8 +80,13 @@ def handleInput(key):
             return 5
         elif key == "pull":
             key = ""
-            os.system("cd ~/homeiot-ui && git pull")
-            os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
+            if system == "pi":
+                os.system("cd ~/homeiot-ui && git pull")
+                f = open("tmplogout", "w")
+                f.write("2")
+                f.close()
+            elif system == "sobotka":
+                os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
             return 1
 
     #ledstrip
@@ -343,7 +351,7 @@ while True:
     elif keyboard == "clear":
         os.system('cls' if os.name == 'nt' else 'clear')
         printMenu(menu)
-    elif keyboard == "login":
+    elif keyboard == "login" and system == "pi":
         os.system('cls' if os.name == 'nt' else 'clear')
         f = open("tmplogout", "w")
         f.write("1")
