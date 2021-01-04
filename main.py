@@ -343,6 +343,12 @@ while True:
     elif keyboard == "clear":
         os.system('cls' if os.name == 'nt' else 'clear')
         printMenu(menu)
+    elif keyboard == "login":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        f = open("tmplogout", "w")
+        f.write("1")
+        f.close()
+        break
     elif keyboard in valid:
         os.system('cls' if os.name == 'nt' else 'clear')
         menu = handleInput(keyboard)
