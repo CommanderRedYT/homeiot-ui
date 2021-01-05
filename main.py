@@ -6,6 +6,8 @@ from colorama import Fore, Style
 version = "1.5 "
 running = True
 valid = []
+print('\33]0;HomeIoT\a', end='')
+sys.stdout.flush()
 
 with open('.key', 'r') as file:
     global cryptkey
