@@ -3,7 +3,8 @@ import colorama
 import requests
 import sys
 from colorama import Fore, Style
-version = "1.5 "
+from requests.models import Response
+version = "1.6 "
 running = True
 valid = []
 print('\33]0;HomeIoT\a', end='')
@@ -52,12 +53,12 @@ def setValid():
 
     elif menu == 4:
 
-        valid = ['back', 'T' , 't', '+', '-', 'M', 'm', 'DVD', 'dvd', 'Aux', 'aux', 'Tuner', 'tuner', 'u', 'up', 'd', 'down', 'mov', 'ent', '10', '-10']
+        valid = ['back', 'reset', 'T' , 't', '+', '-', 'M', 'm', 'DVD', 'dvd', 'Aux', 'aux', 'Tuner', 'tuner', 'u', 'up', 'd', 'down', 'mov', 'ent']
         print(Fore.CYAN)
 
     elif menu == 5:
 
-        valid = ['back', 'wol', 'lamp']
+        valid = ['back', 'wol', 'lamp', 'reboot']
         print(Fore.LIGHTYELLOW_EX)
 
     elif menu == "error":
@@ -162,23 +163,23 @@ def handleInput(key):
             sendThingerMsg("esp32", "webavVoldown", "true")
             return 4
 
-        elif key == "10":
-            key = ""
-            tries = 10
-            while tries > 0:
-                tries = tries - 1
-                sendThingerMsg("esp32", "webavVolup", "true")
-                pass
-            return 4
+#        elif key == "10":
+#            key = ""
+#            tries = 10
+#            while tries > 0:
+#                tries = tries - 1
+#                sendThingerMsg("esp32", "webavVolup", "true")
+#                pass
+#            return 4
 
-        elif key == "-10":
-            key = ""
-            tries = 10
-            while tries > 0:
-                tries = tries - 1
-                sendThingerMsg("esp32", "webavVoldown", "true")
-                pass
-            return 4
+#        elif key == "-10":
+#            key = ""
+#            tries = 10
+#            while tries > 0:
+#                tries = tries - 1
+#                sendThingerMsg("esp32", "webavVoldown", "true")
+#                pass
+#           return 4
 
         elif key == "m" or key == "M":
             key = ""
@@ -220,6 +221,17 @@ def handleInput(key):
             sendThingerMsg("esp32", "webavEnt", "true")
             return 4
 
+        elif key == "reset":
+            key = ""
+            sendThingerMsg("esp32", "resetVol", "true")
+            return 4
+
+        elif (int(key) >= 0 and int(key) <= 100):
+            print("Detected setVol")
+            sendThingerMsg("esp32", "setVol", key)
+            key = ""
+            return 4
+
     elif menu == 5:
         if key == "wol":
             key = ""
@@ -228,6 +240,10 @@ def handleInput(key):
         elif key == "lamp":
             key = ""
             sendThingerMsg("esp32", "webLamp", "true")
+            return 5
+        elif key == "reboot":
+            key = ""
+            sendThingerMsg("esp32", "reboot", "true")
             return 5
 
     #no menu
@@ -359,7 +375,7 @@ while True:
         f.write("1")
         f.close()
         break
-    elif keyboard in valid:
+    elif keyboard in valid or (menu == 4 and keyboard.isnumeric() and int(keyboard) >= 0 and int(keyboard) <= 100):
         os.system('cls' if os.name == 'nt' else 'clear')
         menu = handleInput(keyboard)
         printMenu(menu)
