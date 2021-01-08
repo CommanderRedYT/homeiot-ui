@@ -68,6 +68,9 @@ def setValid():
 
 def handleInput(key):
     #main menu
+    if key == "back":
+        key = ""
+        return 1
     if menu == 1:
         if key == "l": #ledstrip
             key = "" 
@@ -248,10 +251,6 @@ def handleInput(key):
 
     #no menu
     else:
-        key = ""
-        return 1
-    #want to go back?
-    if key == "back":
         key = ""
         return 1
 args = sys.argv
