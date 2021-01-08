@@ -1,6 +1,6 @@
 function checkPIPinstall() {
     PCKG=$1
-    if [ -n "$($VER list --disable-pip-version-check | grep -Fw $PCKG)" ]
+    if [ -n "$(pip3 list --disable-pip-version-check | grep -Fw $PCKG)" ]
     then
     echo "$PCKG is installed!"
     else
@@ -9,7 +9,7 @@ function checkPIPinstall() {
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-    sudo $VER install $PCKG
+    sudo pip3 install $PCKG
     else
     echo "This package is required for this to function!"
     exit
