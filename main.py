@@ -93,6 +93,9 @@ def handleInput(key):
                 exit()
             elif system == "sobotka":
                 os.system("cd ~/Dokumente/VisualStudioCode/homeiot-ui && git pull")
+            elif system == "YOUR_SYSTEM_NAME":
+                os.system("cd ~/PATH_TO_THIS_FOLDER && git pull")
+            #This line should always be line number 98!!!
             return 1
 
     #ledstrip
