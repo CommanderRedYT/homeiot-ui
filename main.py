@@ -1,10 +1,8 @@
 import os
-import colorama
 import requests
 import sys
-from colorama import Fore, Style
-from requests.models import Response
-version = "1.6 "
+from colorama import Fore
+version = "1.7 "
 running = True
 valid = []
 print('\33]0;HomeIoT\a', end='')
@@ -117,9 +115,9 @@ def handleInput(key):
             ledstatus = getThingerMsg("esp32", "stripStatus")
             getThingerMsg("esp32", "webledstripToggle")
             if ledstatus == "1":
-                r = sendThingerMsg("esp32", "stripSetStatus", "true")
+                sendThingerMsg("esp32", "stripSetStatus", "true")
             else:
-                r = sendThingerMsg("esp32", "stripSetStatus", "false")
+                sendThingerMsg("esp32", "stripSetStatus", "false")
             return 2
         elif key == "max":
             key = ""
@@ -127,7 +125,6 @@ def handleInput(key):
             while tries > 0:
                 tries = tries - 1
                 getThingerMsg("esp32", "webledstripBrighter")
-                pass
             return 2
 
         elif key == "min":
@@ -136,7 +133,6 @@ def handleInput(key):
             while tries > 0:
                 tries = tries - 1
                 getThingerMsg("esp32", "webledstripDarker")
-                pass
             return 2
 
     #rec sign

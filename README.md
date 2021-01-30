@@ -11,9 +11,9 @@ ___
 ## Config files
 First, login into [Thinger.io](https://console.thinger.io/) and get your Username and api-key. <br>
 You need to create 3 config files in the project directory.
-1. *.username* (Your thinger.io username)
-2. *.key* (Used with .username to control the esp32)
-3. *.system* (In **`main.py`, Line 96**, you have to specify the project folder path. I maybe let the program read it out in a future version, but at the moment you have to configure it for yourself! - Used by the pull command)
+ 1. *.username* (Your thinger.io username)
+ 2. *.key* (Used with .username to control the esp32)
+ 3. *.system* (In **`main.py`, Line 96**, you have to specify the project folder path. I maybe let the program read it out in a future version, but at the moment you have to configure it for yourself! - Used by the pull command)
 
 
 ___
